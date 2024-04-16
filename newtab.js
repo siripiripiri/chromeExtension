@@ -75,6 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Append img icon to delete button
         deleteBtn.appendChild(imgIcon);
         deleteBtn.classList.add('delete-btn')
+        deleteBtn.classList.add('hidden')
 
         // Add event listener to delete button
         deleteBtn.addEventListener('click', function() {
@@ -119,24 +120,24 @@ document.addEventListener("DOMContentLoaded", function() {
     // Display initial shortcuts when the page loads
     displayShortcuts();
 
-    let settingFlag = 0;
-    const settingsButton = document.getElementById("settings-button");
-    const addShortcut = document.getElementById('addShortcut');
-    const deleteBtn = document.querySelectorAll('.delete-btn');
-    
-    settingsButton.addEventListener("click", () => {
-        settingFlag = settingFlag === 0 ? 1 : 0;
-    
-        if (settingFlag === 1) {
-            // Hide elements when settingFlag is 1
-            addShortcut.classList.add('hidden');
-            addShortcutBtn.classList.add('hidden');
-            deleteBtn.forEach(btn => btn.classList.add('hidden'));
-        } else {
-            // Show elements when settingFlag is 0
-            addShortcut.classList.remove('hidden');
-            addShortcutBtn.classList.remove('hidden');
-            deleteBtn.forEach(btn => btn.classList.remove('hidden'));
-        }
-    });
+    let settingFlag = 1;
+const settingsButton = document.getElementById("settings-button");
+const addShortcut = document.getElementById('addShortcut');
+const deleteBtn = document.querySelectorAll('.delete-btn');
+
+settingsButton.addEventListener("click", () => {
+    settingFlag = settingFlag === 0 ? 1 : 0;
+
+    if (settingFlag === 1) {
+        // Hide elements when settingFlag is 1
+        addShortcut.classList.add('hidden');
+        addShortcutBtn.classList.add('hidden');
+        deleteBtn.forEach(btn => btn.classList.add('hidden'));
+    } else {
+        // Show elements when settingFlag is 0
+        addShortcut.classList.remove('hidden');
+        addShortcutBtn.classList.remove('hidden');
+        deleteBtn.forEach(btn => btn.classList.remove('hidden'));
+    }
+});
 });
