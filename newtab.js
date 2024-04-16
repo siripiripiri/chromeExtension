@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (!url.startsWith("http://") && !url.startsWith("https://")) {
         url = "https://" + url;
         }
-        
+
         if (url !== '') {
             // Use the name of the website as the shortcut name
             const name = new URL(url).hostname.replace('www.', '');
@@ -121,29 +121,22 @@ document.addEventListener("DOMContentLoaded", function() {
 
     let settingFlag = 0;
     const settingsButton = document.getElementById("settings-button");
-
+    const addShortcut = document.getElementById('addShortcut');
+    const deleteBtn = document.querySelectorAll('.delete-btn');
+    
     settingsButton.addEventListener("click", () => {
         settingFlag = settingFlag === 0 ? 1 : 0;
-
-        const shortcutUrl = document.getElementById('shortcutUrl');
-        const shortcutUrlInput = document.getElementById('shortcutUrlInput');
-        const addShortcut = document.getElementById('addShortcut');
-        const deleteBtn = document.querySelectorAll('.delete-btn');
-        const addShortcutBtn = document.getElementById("addShortcutBtn")
+    
         if (settingFlag === 1) {
             // Hide elements when settingFlag is 1
-            shortcutUrl.classList.add("hidden");
-            shortcutUrlInput.classList.add("hidden");
-            addShortcutBtn.classList.add("hidden");
-            addShortcut.classList.add("hidden");
-            deleteBtn.add("hidden");
+            addShortcut.classList.add('hidden');
+            addShortcutBtn.classList.add('hidden');
+            deleteBtn.forEach(btn => btn.classList.add('hidden'));
         } else {
             // Show elements when settingFlag is 0
-            shortcutUrl.classList.remove("hidden");
-            shortcutUrlInput.classList.remove("hidden");
-            addShortcutBtn.classList.remove("hidden");
-            deleteBtn.remove("hidden");
-            addShortcut.classList.remove("hidden");
+            addShortcut.classList.remove('hidden');
+            addShortcutBtn.classList.remove('hidden');
+            deleteBtn.forEach(btn => btn.classList.remove('hidden'));
         }
     });
 });
