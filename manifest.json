@@ -1,0 +1,10 @@
+{
+    "name": "Extension4u",
+    "version": "1.0",
+    "manifest_version": 3,
+    "description": "This wont hurt your eyes baby",
+    "permissions": ["tabs"],
+    "chrome_url_overrides" : {
+    "newtab": "newtab.html"
+    }
+}
