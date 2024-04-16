@@ -94,8 +94,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Add event listener to the '+' button
     addShortcutBtn.addEventListener('click', function() {
-        const url = shortcutUrlInput.value.trim();
+        let url = shortcutUrlInput.value.trim();
 
+        if (!url.startsWith("http://") && !url.startsWith("https://")) {
+        url = "https://" + url;
+        }
+        
         if (url !== '') {
             // Use the name of the website as the shortcut name
             const name = new URL(url).hostname.replace('www.', '');
