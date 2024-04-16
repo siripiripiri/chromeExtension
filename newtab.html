@@ -3,78 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <link rel="icon" href="u.svg">
+    <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Tab ✧･ﾟ: *✧･ﾟ:*</title>
-    <style>
-        @font-face {
-        font-family: 'Eugusto';
-        src: url('Eugusto Free Font.otf') format('opentype');
-        }
-
-        @font-face {
-        font-family: 'Gazpacho';
-        src: url('Gazpacho Medium.ttf') format('truetype');
-        }
-        @font-face {
-        font-family: 'Rounded';
-        src: url('Arial Rounded MT Regular.ttf') format('truetype');
-        }
-        
-
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #0b1215;
-            font-family: Poppins, sans-serif;
-            color: #a495b6;
-        }
-        #formatButton{
-            display: none;
-        }
-        #clock {
-            font-size: 5rem;
-            font-family: 'Eugusto';
-            font-weight: 700;
-            letter-spacing: 0.25rem;
-        }
-
-        #date {
-            font-size: 2rem;
-            font-family: 'Gazpacho';
-            font-weight: 500;
-            color: #6b6177;
-        }
-
-        .msg{
-            color: #47424e;
-            font-family: 'Rounded';
-            font-weight: 200;
-            font-size: 1.5rem;
-        }
-
-        .container{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            font-family: gazpacho;
-            font-weight: 700;
-
-        }
-    </style>
 </head>
+
 <body>
+    
+    <div class="main-container">
     <div class="container">
+    <div class="clockDate">
         <div id="clock"></div>
         <div id="date"></div>
         
         <p class="msg">You are my special <3</p>
     </div>
+</div>
+
+    <div class="shortcut-section">
+        <div id="settings-button">
+            <img class="settings-icon" src="settings-svgrepo-com.svg" alt="settings">
+        </div>
+        <div id="addShortcut">
+            <input type="text" id="shortcutUrl" placeholder="Enter URL">
+            <button id="addShortcutBtn" >+</button>
+        </div>
+        <div id="shortcuts">
+        </div>
+    </div>
+    </div>
     <button id="formatButton">Toggle Format</button> 
+</div>
     <script src="newtab.js"></script>
 </body>
 </html>

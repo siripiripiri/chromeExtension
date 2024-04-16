@@ -1,0 +1,145 @@
+@font-face {
+    font-family: 'Eugusto';
+    src: url('Eugusto Free Font.otf') format('opentype');
+    }
+
+    @font-face {
+    font-family: 'Gazpacho';
+    src: url('Gazpacho Medium.ttf') format('truetype');
+    }
+    @font-face {
+    font-family: 'Rounded';
+    src: url('Arial Rounded MT Regular.ttf') format('truetype');
+    }
+    
+
+    body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #0b1215;
+        font-family: Poppins, sans-serif;
+        color: #a495b6;
+    }
+    #formatButton{
+        display: none;
+    }
+    #clock {
+        font-size: 5rem;
+        font-family: 'Eugusto';
+        font-weight: 700;
+        letter-spacing: 0.25rem;
+    }
+
+    #date {
+        font-size: 2rem;
+        font-family: 'Gazpacho';
+        font-weight: 500;
+        color: #6b6177;
+    }
+
+.settings-icon{
+    width:2rem;
+    color:white;
+
+}
+#settings-button{
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+    .msg{
+        color: #47424e;
+        font-family: 'Rounded';
+        font-weight: 200;
+        font-size: 1.5rem;
+    }
+
+    .container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: gazpacho;
+        font-weight: 700;
+        gap:1rem;
+    }
+
+.clockDate{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#shortcuts{
+    background-color: #a495b6;
+    padding: 1rem;
+    border-radius: 1rem;
+    text-decoration: none;
+    display: flex;
+    font-family: 'Rounded';
+    gap: 1rem;
+    
+}
+
+#shortcutUrl{
+    background-color: #2f2e30;
+    border-style: none;
+    padding: 0.8rem;
+    border-radius: 1rem;
+    color: #a495b6;
+    text-decoration: none;
+}
+
+#addShortcutBtn{
+    padding: 0.8rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    background-color: #af93d0;
+    border-style: none;
+    color: rgb(255, 255, 255);
+}
+
+.link{
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.delete-btn{
+    margin-left: 0.5rem;
+    border-radius: 0.5rem;
+    border-style: none;
+    padding: 0.4rem;
+    background-color: #e2d8ee;
+}
+.delete-icon{
+    width: 1rem;
+    height: 1rem;
+    background-color: #e2d8ee;
+
+}
+
+.shortcut{
+    background-color: #2f2e30;
+    border-style: none;
+    padding: 0.8rem;
+    border-radius: 1rem;
+    color: #a495b6;
+    text-decoration: none;
+}
+
+.shortcut-section{
+display:flex;
+flex-direction: column;
+align-items: center;
+gap: 1rem;
+}
+
+.hidden{
+    display: none;
+}
