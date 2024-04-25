@@ -16,16 +16,21 @@
     body {
         margin: 0;
         padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
         background-color: #0b1215;
         font-family: Poppins, sans-serif;
         color: #a495b6;
     }
-    #formatButton{
-        display: none;
+
+.body-parallel{
+    display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        
+}
+
+#formatButton{
+    display: none;
     }
     #clock {
         font-size: 5rem;
@@ -35,7 +40,7 @@
     }
 
     #date {
-        font-size: 2rem;
+        font-size: 1.5rem;
         font-family: 'Gazpacho';
         font-weight: 500;
         color: #6b6177;
@@ -50,6 +55,14 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    transition: 1s ease;
+    position: absolute;
+    right: 0;
+    margin: 2rem;
+}
+
+.settings-icon:hover{
+    color: #af93d0;
 }
 
     .msg{
@@ -142,4 +155,9 @@ gap: 1rem;
 
 .hidden{
     display: none;
+}
+
+.no-shortcuts{
+    color: #47424e;
+    font-size: 1rem;
 }
