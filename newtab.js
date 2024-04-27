@@ -1,4 +1,5 @@
-let is24HourFormat = false; 
+let is24HourFormat = false;
+let settingFlag = 1; // Move the declaration and initialization here
 
 function updateTimeAndDate() {
     const now = new Date();
@@ -21,7 +22,7 @@ function updateTimeAndDate() {
 
 document.getElementById('formatButton').addEventListener('click', function() {
     is24HourFormat = !is24HourFormat;
-    updateTimeAndDate(); 
+    updateTimeAndDate();
 });
 
 setInterval(updateTimeAndDate, 1000);
@@ -45,48 +46,54 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Function to display shortcuts
     function displayShortcuts() {
-        shortcutsContainer.innerHTML = ''; // Clear previous shortcuts
         const shortcuts = getShortcuts();
-
-        // Loop through shortcuts and create HTML elements for each
+        const shortcutElements = shortcutsContainer.querySelectorAll('.shortcut');
+    
+        // Remove deleted shortcuts
+        for (let i = 0; i < shortcutElements.length; i++) {
+            const shortcutElement = shortcutElements[i];
+            const shortcutUrl = shortcutElement.querySelector('.link').href;
+            if (!shortcuts.some(shortcut => shortcut.url === shortcutUrl)) {
+                shortcutsContainer.removeChild(shortcutElement);
+            } else {
+                // Update visibility of delete buttons for existing shortcuts
+                const deleteBtn = shortcutElement.querySelector('.delete-btn');
+                deleteBtn.classList.toggle('hidden', settingFlag !== 0);
+            }
+        }
+    
+        // Add new shortcuts
         shortcuts.forEach((shortcut, index) => {
-            const shortcutDiv = document.createElement('div');
-            shortcutDiv.classList.add('shortcut');
-
-            const link = document.createElement('a');
-            link.classList.add('link');
-            link.href = shortcut.url;
-            link.textContent = shortcut.name; // Use the name of the website as the shortcut name
-            link.target = '_blank'; // Open in new tab
-            shortcutDiv.appendChild(link);
-
-// Add delete button for each shortcut
-        const deleteBtn = document.createElement('button');
-
-        // Create img element
-        const imgIcon = document.createElement('img');
-        imgIcon.classList.add('delete-icon');
-        imgIcon.src = 'del-icon.svg'; // Set the path to your delete icon image
-        imgIcon.alt = 'Delete'; // Add alt text for accessibility
-
-        // Append img icon to delete button
-        deleteBtn.appendChild(imgIcon);
-        deleteBtn.classList.add('delete-btn')
-        deleteBtn.classList.add('hidden')
-
-        // Add event listener to delete button
-        deleteBtn.addEventListener('click', function() {
-            // Remove the shortcut from the array and update localStorage
-            shortcuts.splice(index, 1);
-            saveShortcuts(shortcuts);
-            // Display updated shortcuts
-            displayShortcuts();
-        });
-
-        shortcutDiv.appendChild(deleteBtn);
-
-
-            shortcutsContainer.appendChild(shortcutDiv);
+            const existingShortcutElement = shortcutsContainer.querySelector(`.shortcut .link[href="${shortcut.url}"]`);
+            if (!existingShortcutElement) {
+                const shortcutDiv = document.createElement('div');
+                shortcutDiv.classList.add('shortcut');
+    
+                const link = document.createElement('a');
+                link.classList.add('link');
+                link.href = shortcut.url;
+                link.textContent = shortcut.name;
+                link.target = '_blank';
+                shortcutDiv.appendChild(link);
+    
+                const deleteBtn = document.createElement('button');
+                const imgIcon = document.createElement('img');
+                imgIcon.classList.add('delete-icon');
+                imgIcon.src = 'del-icon.svg';
+                imgIcon.alt = 'Delete';
+                deleteBtn.appendChild(imgIcon);
+                deleteBtn.classList.add('delete-btn');
+                deleteBtn.classList.toggle('hidden', settingFlag !== 0); // Initial visibility based on settingFlag
+    
+                deleteBtn.addEventListener('click', function() {
+                    shortcuts.splice(index, 1);
+                    saveShortcuts(shortcuts);
+                    displayShortcuts();
+                });
+    
+                shortcutDiv.appendChild(deleteBtn);
+                shortcutsContainer.appendChild(shortcutDiv);
+            }
         });
     }
 
@@ -95,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let url = shortcutUrlInput.value.trim();
 
         if (!url.startsWith("http://") && !url.startsWith("https://")) {
-        url = "https://" + url;
+            url = "https://" + url;
         }
 
         if (url !== '') {
@@ -117,18 +124,18 @@ document.addEventListener("DOMContentLoaded", function() {
     // Display initial shortcuts when the page loads
     displayShortcuts();
 
-    let settingFlag = 1;
     const settingsButton = document.getElementById("settings-button");
     const addShortcut = document.getElementById('addShortcut');
     const deleteBtn = document.querySelectorAll('.delete-btn');
     const msgElement = document.querySelector('.msg');
-    
+    const options= document.querySelector('.options');
+
     // Retrieve the stored message from localStorage on page load
     const storedMessage = localStorage.getItem('customMessage');
     if (storedMessage) {
         msgElement.textContent = storedMessage;
     }
-    
+
     settingsButton.addEventListener("click", () => {
         settingFlag = settingFlag === 0 ? 1 : 0;
     
@@ -139,17 +146,22 @@ document.addEventListener("DOMContentLoaded", function() {
             deleteBtn.forEach(btn => btn.classList.add('hidden'));
             msgElement.removeAttribute('contenteditable'); // Make the msg element non-editable
             msgElement.removeEventListener('keydown', handleEnterKey);
+            options.classList.add('hidden');
         } else {
             // Show elements when settingFlag is 0
             addShortcut.classList.remove('hidden');
             addShortcutBtn.classList.remove('hidden');
-            deleteBtn.forEach(btn => btn.classList.remove('hidden'));
+            options.classList.remove('hidden');
             msgElement.setAttribute('contenteditable', 'true'); // Make the msg element editable
             msgElement.addEventListener('keydown', handleEnterKey);
-            msgElement.focus();
+            // msgElement.focus();
         }
+    
+        // Update visibility of delete buttons
+        displayShortcuts();
     });
     
+
     // Event listener for changes to the msg element
     msgElement.addEventListener('input', () => {
         const updatedMessage = msgElement.textContent;
@@ -163,6 +175,4 @@ document.addEventListener("DOMContentLoaded", function() {
             msgElement.removeEventListener('keydown', handleEnterKey); // Remove the event listener
         }
     }
-
 });
-
