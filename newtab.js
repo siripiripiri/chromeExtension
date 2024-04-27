@@ -121,6 +121,7 @@ updateTimeAndDate();
 const initialThemeOption = document.getElementById(currentTheme);
 initialThemeOption.classList.add('is-selected');
 
+
 // Add event listeners for theme selection
 const themeOptions = document.querySelectorAll('.theme');
 themeOptions.forEach(option => {
@@ -151,6 +152,54 @@ themeOptions.forEach(option => {
 });
 
 
+// Function to update the font family of the clock based on the selected font
+function updateClockFontFamily(font) {
+    const clockElement = document.getElementById('clock');
+    if (clockElement) {
+        switch (font) {
+            case 'groovy':
+                clockElement.style.fontFamily = 'Eugusto';
+                break;
+            case 'bright':
+                clockElement.style.fontFamily = 'Adventuro';
+                break;
+            case 'subtle':
+                clockElement.style.fontFamily = 'Monas';
+                break;
+            default:
+                // Default font family
+                clockElement.style.fontFamily = 'Eugusto'; // Change this to your default font family if needed
+        }
+        // Store the selected font in localStorage
+        localStorage.setItem('selectedFont', font);
+    } else {
+        console.error('Clock element not found');
+    }
+}
+
+// Function to retrieve the selected font from localStorage
+function getSelectedFont() {
+    return localStorage.getItem('selectedFont');
+}
+
+// Add event listeners for font selection
+const fontOptions = document.querySelectorAll('.input[name="font"]');
+fontOptions.forEach(option => {
+    option.addEventListener('change', () => {
+        const selectedFont = document.querySelector('input[name="font"]:checked').value;
+        updateClockFontFamily(selectedFont);
+    });
+});
+
+// Initialize the font family of the clock based on the selected font when the page loads
+const initialFont = getSelectedFont() || document.querySelector('input[name="font"]:checked').value;
+updateClockFontFamily(initialFont);
+
+// Set the checked attribute on the radio button corresponding to the selected font
+const selectedFontInput = document.querySelector(`input[name="font"][value="${initialFont}"]`);
+if (selectedFontInput) {
+    selectedFontInput.checked = true;
+}
 
 // Set the initial theme
 document.getElementById(currentTheme).classList.add('is-selected');
