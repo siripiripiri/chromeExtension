@@ -1,6 +1,13 @@
 let is24HourFormat = getStoredFormat();
 let settingFlag = 1;
 let currentTheme = getCurrentTheme();
+// let isLightMode = getStoredLightMode();
+
+// function getStoredLightMode() {
+//     return localStorage.getItem('isLightMode') === 'true';
+// }
+
+let isLightMode = localStorage.getItem('isLightMode') === 'true';
 
 function getStoredFormat() {
   return localStorage.getItem('is24HourFormat') === 'true';
@@ -9,6 +16,51 @@ function getStoredFormat() {
 function getCurrentTheme() {
   return localStorage.getItem('currentTheme') || 'lavender';
 }
+
+// Function to update styles when light mode is enabled/disabled
+function updateLightMode() {
+    const bodyParallel = document.querySelector('.body-parallel');
+    const clock = document.getElementById('clock');
+    const date = document.getElementById('date');
+    const shortcutsContainer = document.getElementById('shortcuts');
+    const addShortcutBtn = document.getElementById('addShortcutBtn');
+
+    if (isLightMode) {
+        // Light mode is enabled
+        const currentThemeColor = getComputedStyle(document.getElementById(currentTheme)).backgroundColor;
+        bodyParallel.style.backgroundColor = currentThemeColor;
+        clock.style.color = '#343434'; // Set text color of clock to #343434
+        date.style.color = '#343434'; // Set text color of date to #343434
+        shortcutsContainer.style.backgroundColor = 'transparent';
+        addShortcutBtn.style.backgroundColor = '#af93d0';
+        bodyParallel.classList.add('light-mode'); // Add light-mode class to bodyParallel
+    } else {
+        // Light mode is disabled
+        const themeColor = getComputedStyle(document.documentElement).getPropertyValue(`--${currentTheme}-color`);
+        bodyParallel.style.backgroundColor = '#0b1215';
+        clock.style.color = themeColor;
+        date.style.color = `rgba(${parseInt(themeColor.slice(4, -1).split(', ')[0])}, ${parseInt(themeColor.slice(4, -1).split(', ')[1])}, ${parseInt(themeColor.slice(4, -1).split(', ')[2])}, 0.7)`;
+        shortcutsContainer.style.backgroundColor = '#2f2e30';
+        addShortcutBtn.style.backgroundColor = '#af93d0';
+        bodyParallel.classList.remove('light-mode'); // Remove light-mode class from bodyParallel
+    }
+}
+
+
+
+// Call updateLightMode function initially to set styles based on stored light mode preference
+updateLightMode();
+
+// Add event listener to light mode toggle switch
+const lightSwitch = document.getElementById('light-switch').querySelector('input');
+lightSwitch.checked = isLightMode; // Set the initial state of the checkbox
+
+lightSwitch.addEventListener('change', function () {
+    isLightMode = this.checked;
+    localStorage.setItem('isLightMode', isLightMode);
+    updateLightMode(); // Update styles based on the new light mode state
+});
+
 
 function updateTimeAndDate() {
     const now = new Date();
@@ -24,18 +76,29 @@ function updateTimeAndDate() {
     const minutes = String(now.getMinutes()).padStart(2, '0');
     const date = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     const timeFormat = is24HourFormat ? `${hours}:${minutes}` : `${hours}:${minutes} ${ampm}`;
+    const bodyParallel = document.querySelector('.body-parallel')
 
     const clockElement = document.getElementById('clock');
     clockElement.innerText = timeFormat;
 
-    // Log the selected theme and its associated color
-    console.log('Selected Theme:', currentTheme);
-    console.log('Associated Color:', getComputedStyle(document.documentElement).getPropertyValue(`--${currentTheme}-color`));
+    const dateElement = document.getElementById('date');
+    dateElement.innerText = date;
+    
+    const themeColor = getComputedStyle(document.getElementById(currentTheme)).backgroundColor;
+    // Calculate RGBA color with 70% opacity
+    const rgbaColor = `rgba(${parseInt(themeColor.slice(4, -1).split(', ')[0])}, ${parseInt(themeColor.slice(4, -1).split(', ')[1])}, ${parseInt(themeColor.slice(4, -1).split(', ')[2])}, 0.7)`;
 
-    // Update the clock color based on the selected theme
+    // Set font color with 70% opacity based on theme color for date element
+    dateElement.style.color = rgbaColor;
     clockElement.style.color = getComputedStyle(document.documentElement).getPropertyValue(`--${currentTheme}-color`);
+    
+    const shortcutsDiv = document.getElementById('shortcuts');
+    shortcutsDiv.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue(`--${currentTheme}-color`);
 
-    document.getElementById('date').innerText = date;
+    const addShortcutButton = document.getElementById('addShortcutBtn');
+    addShortcutButton.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue(`--${currentTheme}-color`);
+
+    
 }
 
 
@@ -63,16 +126,25 @@ const themeOptions = document.querySelectorAll('.theme');
 themeOptions.forEach(option => {
   option.addEventListener('click', () => {
     const selectedTheme = option.id;
-    console.log('Selected Theme:', selectedTheme); // Log the selected theme
     currentTheme = selectedTheme;
     localStorage.setItem('currentTheme', selectedTheme);
     document.querySelector('.is-selected').classList.remove('is-selected');
     option.classList.add('is-selected');
     document.querySelector('.current-theme + p b').textContent = selectedTheme.charAt(0).toUpperCase() + selectedTheme.slice(1);
+
+    const bodyParallel = document.querySelector('.body-parallel');
+    if (isLightMode) {
+        bodyParallel.style.backgroundColor = getComputedStyle(document.getElementById(selectedTheme)).backgroundColor;
+    }
+
     updateTimeAndDate();
     
     // Update the color of the clock based on the selected theme
     const clockElement = document.getElementById('clock');
+    const shortcutsContainer = document.getElementById('shortcuts')
+    shortcutsContainer.classList.remove(...clockElement.classList); // Remove all existing classes
+    shortcutsContainer.classList.add(selectedTheme); // Add the selected theme class
+
     clockElement.classList.remove(...clockElement.classList); // Remove all existing classes
     clockElement.classList.add(selectedTheme); // Add the selected theme class
   });
@@ -90,6 +162,34 @@ document.addEventListener("DOMContentLoaded", function() {
     const shortcutsContainer = document.getElementById('shortcuts');
     const addShortcutBtn = document.getElementById('addShortcutBtn');
     const shortcutUrlInput = document.getElementById('shortcutUrl');
+
+    function updateTheme() {
+        // Retrieve stored theme and light mode preferences from localStorage
+        const currentTheme = localStorage.getItem('currentTheme') || 'lavender';
+        const isLightMode = localStorage.getItem('isLightMode') === 'true';
+
+        // Check if light mode is enabled
+        if (isLightMode) {
+            // Light mode is enabled, update body background color and text colors
+            const themeColor = getComputedStyle(document.getElementById(currentTheme)).backgroundColor;
+            const bodyParallel = document.querySelector('.body-parallel');
+            bodyParallel.style.backgroundColor = themeColor;
+
+            const clock = document.getElementById('clock');
+            const date = document.getElementById('date');
+            clock.style.color = '#343434';
+            date.style.color = '#343434';
+        } else {
+            // Light mode is disabled, update clock color based on selected theme
+            const clock = document.getElementById('clock');
+            const themeColor = getComputedStyle(document.documentElement).getPropertyValue(`--${currentTheme}-color`);
+            clock.style.color = themeColor;
+
+            // Update date color with 70% opacity based on theme color
+            const date = document.getElementById('date');
+            date.style.color = `rgba(${parseInt(themeColor.slice(4, -1).split(', ')[0])}, ${parseInt(themeColor.slice(4, -1).split(', ')[1])}, ${parseInt(themeColor.slice(4, -1).split(', ')[2])}, 0.7)`;
+        }
+    }
 
     const themeOptions = document.querySelectorAll('.theme');
     themeOptions.forEach(option => {

@@ -160,7 +160,7 @@ hr{
 .themes-container{
     display: flex;
     flex-direction: column;
-    margin:0rem 2rem 0rem 2rem;
+    margin:0rem 2rem 2rem 2rem;
     width:16rem;
     height: 6rem;
     border: 1px solid #0b1215;
@@ -190,6 +190,14 @@ hr{
     border: #707070 solid  0.1rem;
     display: block;
     cursor: pointer;
+}
+.light-mode-toggler{
+    display: flex;
+    font-size: 1rem;
+    text-align: center;
+    place-items: center;
+    justify-content: space-between;
+    margin-right: 2rem;
 }
 
 /*themes */
@@ -237,6 +245,17 @@ hr{
   }
   /* Define styles for other theme classes */
 
+  /* Remove background-color styles for light mode */
+.light-mode #clock,
+.light-mode #date,
+.light-mode #shortcuts{
+    color: #3B3B3B; /* Set text color for clock, date, addShortcutBtn, and shortcuts sections */
+}
+
+.light-mode #shortcuts, .light-mode #addShortcutBtn {
+    background-color: #F0F0F0; /* Set background color for shortcuts section in light mode */
+}
+
 
 
     #clock {
@@ -244,7 +263,7 @@ hr{
         font-family: 'Eugusto';
         font-weight: 700;
         letter-spacing: 0.25rem;
-        transition: 1s ease;
+        transition: 0.5s ease;
         color: #af93d0;
     }
 
@@ -252,6 +271,7 @@ hr{
         font-size: 1.5rem;
         font-family: 'Gazpacho';
         font-weight: 500;
+        transition: 0.5s ease;
         color: #6b6177;
     }
 
@@ -281,7 +301,7 @@ hr{
 }
 
     .msg{
-        color: #47424e;
+        color: #757575;
         font-family: 'Rounded';
         font-weight: 200;
         font-size: 1.5rem;
@@ -306,14 +326,13 @@ hr{
 }
 
 #shortcuts{
-    background-color: #a495b6;
     padding: 1rem;
     border-radius: 1rem;
     text-decoration: none;
     display: flex;
     font-family: 'Rounded';
     gap: 1rem;
-    
+    transition: 0.5s ease;
 }
 
 #shortcutUrl{
@@ -329,9 +348,9 @@ hr{
     padding: 0.8rem;
     border-radius: 0.5rem;
     cursor: pointer;
-    background-color: #af93d0;
     border-style: none;
-    color: rgb(255, 255, 255);
+    color: rgb(39, 39, 39);
+    border: #343434 solid 1px;
 }
 
 .link{
@@ -344,13 +363,21 @@ hr{
     border-radius: 0.5rem;
     border-style: none;
     padding: 0.4rem;
-    background-color: #e2d8ee;
+    background-color: #ffffff;
 }
 .delete-icon{
     width: 1rem;
     height: 1rem;
-    background-color: #e2d8ee;
+    background-color: #ffffff;
 
+}
+
+.btn-icon{
+    width: 0.7rem;
+    height: 0.7rem;
+    color: #2d2d2d;
+    text-align: center;
+    
 }
 
 .shortcut{
@@ -388,3 +415,14 @@ gap: 1rem;
     opacity: 0;
     transform: translateY(-20px);
   }
+
+/* Add styles for light mode */
+.light-mode #clock,
+.light-mode #date {
+    color: #343434 !important; /* Set text color for clock and date */
+}
+
+.light-mode #shortcuts,
+.light-mode #addShortcutBtn {
+    background-color: #F0F0F0; /* Set background color for shortcuts section and addShortcutBtn */
+}
