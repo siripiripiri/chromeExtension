@@ -12,8 +12,38 @@
     <div id="settings-button">
         <img class="settings-icon" src="settings-svgrepo-com.svg" alt="settings">
     </div>
-    <div class="options hidden">
-
+    <div class="options">
+        <div class="options-container">
+            <h2 class="options-title">✷ Customize</h2>
+            <div class="format-toggle">
+                <h2 class="list-item">Use 24-Hour Format</h2>
+                <label id="format-switch" class="switch">
+                    <input type="checkbox">
+                        <span class="slider"></span>
+                </label>
+            </div>
+            <hr>
+            <div class="themes-section">
+                <h2 class="list-item themes-header">THEMES</h2>
+                <div class="current">
+                <p class="current-theme">Current:</p><p><b>Lavender</b></p>
+            </div>
+                <div class="themes-container">
+                    <div class="wrapper">
+                    <div class="wrapper-row">
+                    <div id="lavender" class="theme is-selected"></div>
+                    <div id="sunbeam" class="theme"></div>
+                    <div id="meadow" class="theme"></div>
+                </div>
+                <div class="wrapper-row">
+                    <div id="peach" class="theme"></div>
+                    <div id="aqua" class="theme"></div>
+                    <div id="mist" class="theme"></div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
     </div>
 
 
@@ -39,7 +69,7 @@
         </div>
     </div>
     </div>
-    <button id="formatButton">Toggle Format</button> 
+    
 </div>
 </div>
     <script src="newtab.js"></script>

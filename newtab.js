@@ -1,32 +1,42 @@
-let is24HourFormat = false;
-let settingFlag = 1; // Move the declaration and initialization here
+let is24HourFormat = getStoredFormat();
+let settingFlag = 1;
 
-function updateTimeAndDate() {
+function getStoredFormat() {
+    return localStorage.getItem('is24HourFormat') === 'true';
+  }
+
+  function updateTimeAndDate() {
     const now = new Date();
     let hours, ampm;
-
+  
     if (is24HourFormat) {
-        hours = String(now.getHours()).padStart(2, '0');
+      hours = String(now.getHours()).padStart(2, '0');
     } else {
-        hours = (now.getHours() % 12 || 12).toString();
-        ampm = now.getHours() >= 12 ? 'PM' : 'AM';
+      hours = (now.getHours() % 12 || 12).toString();
+      ampm = now.getHours() >= 12 ? 'PM' : 'AM';
     }
-
+  
     const minutes = String(now.getMinutes()).padStart(2, '0');
     const date = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     const timeFormat = is24HourFormat ? `${hours}:${minutes}` : `${hours}:${minutes} ${ampm}`;
-
+  
     document.getElementById('clock').innerText = timeFormat;
     document.getElementById('date').innerText = date;
-}
-
-document.getElementById('formatButton').addEventListener('click', function() {
-    is24HourFormat = !is24HourFormat;
-    updateTimeAndDate();
-});
-
-setInterval(updateTimeAndDate, 1000);
-updateTimeAndDate();
+  }
+  
+    const formatSwitch = document.getElementById('format-switch').querySelector('input');
+  formatSwitch.checked = is24HourFormat; // Set the initial state of the checkbox
+  
+  formatSwitch.addEventListener('change', function() {
+    is24HourFormat = this.checked;
+    localStorage.setItem('is24HourFormat', is24HourFormat);
+    clearInterval(intervalId); // Clear the existing interval
+    intervalId = setInterval(updateTimeAndDate, 1000); // Set a new interval with the updated time format
+    updateTimeAndDate(); // Immediately update the time with the new format
+  });
+  
+  let intervalId = setInterval(updateTimeAndDate, 1000);
+  updateTimeAndDate();
 
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -137,8 +147,14 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     settingsButton.addEventListener("click", () => {
+        event.stopPropagation();
         settingFlag = settingFlag === 0 ? 1 : 0;
-    
+        const options = document.querySelector('.options');
+        options.style.offsetWidth; // Force a reflow
+        setTimeout(function() {
+            options.classList.toggle('show');
+        }, 10);
+
         if (settingFlag === 1) {
             // Hide elements when settingFlag is 1
             addShortcut.classList.add('hidden');
@@ -160,7 +176,18 @@ document.addEventListener("DOMContentLoaded", function() {
         // Update visibility of delete buttons
         displayShortcuts();
     });
-    
+
+    // document.addEventListener('click', function(event) {
+    //     const optionsDiv = document.querySelector('.options');
+    //     const settingsButton = document.getElementById('settings-button');
+        
+    //     if (!optionsDiv.contains(event.target) && event.target !== settingsButton) {
+    //         // Delay toggling the class by a very short duration
+    //         setTimeout(function() {
+    //             optionsDiv.classList.remove('show');
+    //         }, 10);
+    //     }
+    // });
 
     // Event listener for changes to the msg element
     msgElement.addEventListener('input', () => {
