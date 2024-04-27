@@ -13,6 +13,15 @@
     }
     
 
+    :root {
+        --lavender-color: #EBD3F7;
+        --sunbeam-color: #FCEAC6;
+        --meadow-color: #CBE5C0;
+        --peach-color: #F6BCAE;
+        --aqua-color: #CDEBF3;
+        --mist-color: #cfdbde;
+      }
+
     body {
         margin: 0;
         padding: 0;
@@ -180,28 +189,54 @@ hr{
     border-radius: 50%;
     border: #707070 solid  0.1rem;
     display: block;
+    cursor: pointer;
 }
 
 /*themes */
 
 #lavender{
-    background-color: #EBD3F7;
+    background-color: var(--lavender-color);
 }
  #mist{
-    background-color: #E1E2DA;
+    background-color: var(--mist-color);
  }
 #sunbeam{
-    background-color: #FCEAC6;
+    background-color: var(--sunbeam-color);
 }
 #meadow{
-    background-color: #CBE5C0;
+    background-color: var(--meadow-color);
 }
 #aqua{
-    background-color: #CDEBF3;
+    background-color:  var(--aqua-color);
 }
 #peach{
-    background-color: #F6BCAE;
+    background-color: var(--peach-color);
 }
+.lavender {
+    color: var(--lavender-color);
+  }
+  
+  .sunbeam {
+    color: var(--sunbeam-color);
+  }
+  
+  .meadow {
+    color: var(--meadow-color);
+  }
+  .peach{
+    color: var(--peach-color);
+  }
+  .aqua{
+    color: var(--aqua-color);
+  }
+  
+
+  .is-selected {
+    box-shadow: 0 0 0 0.2rem rgba(49, 46, 46, 0.503);
+    border: 0.2rem solid  rgb(255, 255, 255);
+  }
+  /* Define styles for other theme classes */
+
 
 
     #clock {

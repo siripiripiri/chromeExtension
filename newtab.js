@@ -1,48 +1,115 @@
 let is24HourFormat = getStoredFormat();
 let settingFlag = 1;
+let currentTheme = getCurrentTheme();
 
 function getStoredFormat() {
-    return localStorage.getItem('is24HourFormat') === 'true';
-  }
+  return localStorage.getItem('is24HourFormat') === 'true';
+}
 
-  function updateTimeAndDate() {
+function getCurrentTheme() {
+  return localStorage.getItem('currentTheme') || 'lavender';
+}
+
+function updateTimeAndDate() {
     const now = new Date();
     let hours, ampm;
-  
+
     if (is24HourFormat) {
-      hours = String(now.getHours()).padStart(2, '0');
+        hours = String(now.getHours()).padStart(2, '0');
     } else {
-      hours = (now.getHours() % 12 || 12).toString();
-      ampm = now.getHours() >= 12 ? 'PM' : 'AM';
+        hours = (now.getHours() % 12 || 12).toString();
+        ampm = now.getHours() >= 12 ? 'PM' : 'AM';
     }
-  
+
     const minutes = String(now.getMinutes()).padStart(2, '0');
     const date = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     const timeFormat = is24HourFormat ? `${hours}:${minutes}` : `${hours}:${minutes} ${ampm}`;
-  
-    document.getElementById('clock').innerText = timeFormat;
-    document.getElementById('date').innerText = date;
-  }
-  
-    const formatSwitch = document.getElementById('format-switch').querySelector('input');
-  formatSwitch.checked = is24HourFormat; // Set the initial state of the checkbox
-  
-  formatSwitch.addEventListener('change', function() {
-    is24HourFormat = this.checked;
-    localStorage.setItem('is24HourFormat', is24HourFormat);
-    clearInterval(intervalId); // Clear the existing interval
-    intervalId = setInterval(updateTimeAndDate, 1000); // Set a new interval with the updated time format
-    updateTimeAndDate(); // Immediately update the time with the new format
-  });
-  
-  let intervalId = setInterval(updateTimeAndDate, 1000);
-  updateTimeAndDate();
 
+    const clockElement = document.getElementById('clock');
+    clockElement.innerText = timeFormat;
+
+    // Log the selected theme and its associated color
+    console.log('Selected Theme:', currentTheme);
+    console.log('Associated Color:', getComputedStyle(document.documentElement).getPropertyValue(`--${currentTheme}-color`));
+
+    // Update the clock color based on the selected theme
+    clockElement.style.color = getComputedStyle(document.documentElement).getPropertyValue(`--${currentTheme}-color`);
+
+    document.getElementById('date').innerText = date;
+}
+
+
+const formatSwitch = document.getElementById('format-switch').querySelector('input');
+formatSwitch.checked = is24HourFormat; // Set the initial state of the checkbox
+
+formatSwitch.addEventListener('change', function () {
+  is24HourFormat = this.checked;
+  localStorage.setItem('is24HourFormat', is24HourFormat);
+  clearInterval(intervalId); // Clear the existing interval
+  intervalId = setInterval(updateTimeAndDate, 1000); // Set a new interval with the updated time format
+  updateTimeAndDate(); // Immediately update the time with the new format
+});
+
+let intervalId = setInterval(updateTimeAndDate, 1000);
+updateTimeAndDate();
+
+
+// Set the initial theme
+const initialThemeOption = document.getElementById(currentTheme);
+initialThemeOption.classList.add('is-selected');
+
+// Add event listeners for theme selection
+const themeOptions = document.querySelectorAll('.theme');
+themeOptions.forEach(option => {
+  option.addEventListener('click', () => {
+    const selectedTheme = option.id;
+    console.log('Selected Theme:', selectedTheme); // Log the selected theme
+    currentTheme = selectedTheme;
+    localStorage.setItem('currentTheme', selectedTheme);
+    document.querySelector('.is-selected').classList.remove('is-selected');
+    option.classList.add('is-selected');
+    document.querySelector('.current-theme + p b').textContent = selectedTheme.charAt(0).toUpperCase() + selectedTheme.slice(1);
+    updateTimeAndDate();
+    
+    // Update the color of the clock based on the selected theme
+    const clockElement = document.getElementById('clock');
+    clockElement.classList.remove(...clockElement.classList); // Remove all existing classes
+    clockElement.classList.add(selectedTheme); // Add the selected theme class
+  });
+});
+
+
+
+// Set the initial theme
+document.getElementById(currentTheme).classList.add('is-selected');
+document.querySelector('.current-theme + p b').textContent = currentTheme.charAt(0).toUpperCase() + currentTheme.slice(1);
+
+// ... (rest of your code)
 
 document.addEventListener("DOMContentLoaded", function() {
     const shortcutsContainer = document.getElementById('shortcuts');
     const addShortcutBtn = document.getElementById('addShortcutBtn');
     const shortcutUrlInput = document.getElementById('shortcutUrl');
+
+    const themeOptions = document.querySelectorAll('.theme');
+    themeOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            const selectedTheme = option.id;
+            currentTheme = selectedTheme;
+            localStorage.setItem('currentTheme', selectedTheme);
+            document.querySelector('.is-selected').classList.remove('is-selected');
+            option.classList.add('is-selected');
+            document.querySelector('.current-theme + p b').textContent = selectedTheme.charAt(0).toUpperCase() + selectedTheme.slice(1);
+            updateTimeAndDate(); // Update the time and date with the new theme color
+        });
+    });
+
+    // Set the initial theme
+    document.getElementById(currentTheme).classList.add('is-selected');
+    document.querySelector('.current-theme + p b').textContent = currentTheme.charAt(0).toUpperCase() + currentTheme.slice(1);
+
+
+
 
     // Function to retrieve stored shortcuts from localStorage
     function getShortcuts() {
