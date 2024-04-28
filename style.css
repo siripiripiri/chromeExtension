@@ -281,7 +281,14 @@ hr{
 .settings-icon{
     width:2rem;
     color:white;
+    border-radius: 50%;
+    transition: 0.3s ease-in-out;
+}
 
+.settings-icon:hover{
+    box-shadow: 0 0 0.5rem 0.5rem rgba(196, 188, 188, 0.759);
+    border-radius: 50%;
+    transition: 0.2s ease-in-out;
 }
 
 .color-icon{
@@ -297,11 +304,11 @@ hr{
     position: absolute;
     right: 0;
     margin: 2rem;
+    border-radius: 50%;
+    transition: 0.5s ease-in-out;
 }
 
-.settings-icon:hover{
-    color: #af93d0;
-}
+
 
     .msg{
         color: #757575;
@@ -358,21 +365,27 @@ hr{
 .link{
     text-decoration: none;
     color: #ffffff;
+    text-align: center;
+    justify-content: center;
 }
 
-.delete-btn{
+.delete-btn {
     margin-left: 0.5rem;
     border-radius: 0.5rem;
-    border-style: none;
     padding: 0.4rem;
     background-color: #ffffff;
+    width: auto; /* Set the width to auto */
+    height: auto; /* Set the height to auto */
+    display: flex; /* Ensure proper alignment of the icon */
+    align-items: center; /* Align the icon vertically */
 }
-.delete-icon{
-    width: 1rem;
-    height: 1rem;
-    background-color: #ffffff;
 
+.delete-icon {
+    width: 1rem; /* Set the width of the icon */
+    height: 1rem; /* Set the height of the icon */
+    background-color: #ffffff;
 }
+
 
 .btn-icon{
     width: 0.7rem;
@@ -383,13 +396,14 @@ hr{
 }
 
 .shortcut{
-    background-color: #2f2e30;
+    background-color: #343434;
     border-style: none;
     padding: 0.8rem;
-    border-radius: 1rem;
+    border-radius: 50%;
     color: #a495b6;
     text-decoration: none;
-    transition: 1s ease;
+    width: 3.3rem;
+    height: 3.3rem;
 }
 
 .shortcut-section{
@@ -401,7 +415,6 @@ gap: 1rem;
 
 .hidden{
     display: none;
-    transition: 1s ease;
 }
 
 .no-shortcuts{
@@ -506,4 +519,9 @@ gap: 1rem;
 
 .fun{
     margin:0 2rem 0 2rem ;
+}
+
+.shortcut-icon{
+    width: 3.2rem;
+    height: 3.2rem;
 }
