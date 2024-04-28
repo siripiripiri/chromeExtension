@@ -224,6 +224,8 @@ const defaultShortcuts = [
     { name: 'amazon', url: 'https://amazon.in', icon: 'amazon.svg' }
   ];
   
+
+  
   function getShortcuts() {
     const storedShortcuts = JSON.parse(localStorage.getItem('shortcuts')) || [];
     const allShortcuts = [...defaultShortcuts, ...storedShortcuts];
@@ -297,22 +299,33 @@ const defaultShortcuts = [
   }
 
     // Add event listener to the '+' button
-    addShortcutBtn.addEventListener('click', function() {
-        let url = shortcutUrlInput.value.trim();
+addShortcutBtn.addEventListener('click', handleAddShortcut);
 
-        if (!url.startsWith("http://") && !url.startsWith("https://")) {
-            url = "https://" + url;
-        }
+// Add event listener to the input field for typing URL and hitting Enter
+shortcutUrlInput.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        handleAddShortcut();
+    }
+});
 
-        if (url !== '') {
-            const name = new URL(url).hostname.replace('www.', '');
-            const shortcuts = getShortcuts();
-            shortcuts.push({ name, url });
-            saveShortcuts(shortcuts);
-            displayShortcuts();
-            shortcutUrlInput.value = '';
-        }
-    });
+function handleAddShortcut() {
+    let url = shortcutUrlInput.value.trim();
+
+    if (!url.startsWith("http://") && !url.startsWith("https://")) {
+        url = "https://" + url;
+    }
+
+    if (url !== '') {
+        const name = new URL(url).hostname.replace('www.', '');
+        const shortcuts = getShortcuts();
+        shortcuts.push({ name, url });
+        saveShortcuts(shortcuts);
+        displayShortcuts();
+        shortcutUrlInput.value = '';
+    }
+}
+
+
 
     // Display initial shortcuts when the page loads
     displayShortcuts();
