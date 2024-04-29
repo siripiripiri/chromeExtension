@@ -212,25 +212,41 @@ document.addEventListener("DOMContentLoaded", function() {
 
     //save shortcuts to localStorage
     function saveShortcuts(shortcuts) {
-        localStorage.setItem('shortcuts', JSON.stringify(shortcuts));
-    }
+        if (shortcuts.length === 0) {
+          // If the shortcuts array is empty, remove the 'shortcuts' key from localStorage
+          localStorage.removeItem('shortcuts');
+        } else {
+          // Otherwise, save the shortcuts array to localStorage
+          localStorage.setItem('shortcuts', JSON.stringify(shortcuts));
+        }
+      }
     
 // Define the default shortcuts array
-const defaultShortcuts = [
-    { name: 'gemini', url: 'https://gemini.google.com/app', icon: 'gemini.svg' },
-    { name: 'chat', url: 'https://chat.openai.com', icon: 'chat.svg' },
-    { name: 'youtube', url: 'https://youtube.com', icon: 'yt.svg' },
-    { name: 'github', url: 'https://github.com', icon: 'github.svg' },
-    { name: 'amazon', url: 'https://amazon.in', icon: 'amazon.svg' }
-  ];
-  
+    const defaultShortcuts = [
+        { name: 'gemini', url: 'https://gemini.google.com/app', icon: 'gemini.svg' },
+        { name: 'chat', url: 'https://chat.openai.com', icon: 'chat.svg' },
+        { name: 'youtube', url: 'https://youtube.com', icon: 'yt.svg' },
+        { name: 'github', url: 'https://github.com', icon: 'github.svg' },
+        { name: 'amazon', url: 'https://amazon.in', icon: 'amazon.svg' },
+        { name:'gmail', url:'https://mail.google.com', icon:'gmail.svg'}
+    ];
 
-  
-  function getShortcuts() {
-    const storedShortcuts = JSON.parse(localStorage.getItem('shortcuts')) || [];
-    const allShortcuts = [...defaultShortcuts, ...storedShortcuts];
-    return allShortcuts;
-  }
+    const popularUrls = [
+        { name: 'leetcode', url: 'https://leetcode.com/', icon: 'leetcode.svg' },
+        { name: 'netflix', url: 'https://www.netflix.com/', icon: 'netflix.svg' },
+        { name: 'whatsapp', url: 'https://web.whatsapp.com/', icon: 'whatsapp.svg' },
+        { name: 'pinterest', url: 'https://pinterest.com/', icon: 'pinterest.svg' },
+        { name: 'x', url: 'https://x.com', icon: 'x.svg' },
+        { name: 'teams', url: 'https://teams.microsoft.com/v2/', icon: 'teams.svg' },
+        { name: 'linkedin', url: 'https://linkedin.com', icon: 'linkedin.svg' },
+        { name: 'reddit', url: 'https://www.reddit.com/', icon: 'reddit.svg' },
+        { name: 'facebook', url: 'https://facebook.com', icon: 'facebook.svg' },
+        { name: 'canva', url: 'https://canva.com', icon: 'canva.svg' }
+    ];
+    function getShortcuts() {
+        const storedShortcuts = localStorage.getItem('shortcuts');
+        return storedShortcuts ? JSON.parse(storedShortcuts) : defaultShortcuts;
+      }
   
   function displayShortcuts() {
     const shortcuts = getShortcuts();
@@ -251,6 +267,7 @@ const defaultShortcuts = [
   
     // Add shortcuts
     shortcuts.forEach((shortcut, index) => {
+
       const existingShortcutElement = shortcutsContainer.querySelector(`.shortcut .link[href="${shortcut.url}"]`);
       if (!existingShortcutElement) {
         const shortcutDiv = document.createElement('div');
@@ -269,10 +286,33 @@ const defaultShortcuts = [
             link.appendChild(shortcutIcon);
         } else {
             const urlName = new URL(shortcut.url).hostname.replace('www.', '');
-            const urlNameParagraph = document.createElement('p');
-            urlNameParagraph.textContent = urlName;
-            urlNameParagraph.classList.add('shortcut-text')
-            link.appendChild(urlNameParagraph);
+            const popularUrlMatch = popularUrls.find(popular => popular.url === shortcut.url);
+        
+            if (popularUrlMatch) {
+                const shortcutIcon = document.createElement('img');
+                shortcutIcon.classList.add('shortcut-icon');
+                shortcutIcon.src = popularUrlMatch.icon;
+                link.appendChild(shortcutIcon);
+            } else {
+                const defaultShortcutMatch = defaultShortcuts.find(defaultShortcut => defaultShortcut.url === shortcut.url);
+        
+                if (defaultShortcutMatch) {
+                    const shortcutIcon = document.createElement('img');
+                    shortcutIcon.classList.add('shortcut-icon');
+                    shortcutIcon.src = defaultShortcutMatch.icon;
+                    link.appendChild(shortcutIcon);
+                } else {
+                    const firstLetter = urlName.charAt(0).toUpperCase();
+                    const urlNameParagraph = document.createElement('p');
+                    const urlNamesub = document.createElement('p');
+                    urlNameParagraph.textContent = firstLetter;
+                    urlNameParagraph.classList.add('shortcut-text');
+                    urlNamesub.textContent = urlName;
+                    urlNamesub.classList.add('shortcut-sub');
+                    link.appendChild(urlNameParagraph);
+                    link.appendChild(urlNamesub);
+                }
+            }
         }
 
         shortcutDiv.appendChild(link);
@@ -298,35 +338,32 @@ const defaultShortcuts = [
     });
   }
 
-    // Add event listener to the '+' button
-addShortcutBtn.addEventListener('click', handleAddShortcut);
+        // Add event listener to the '+' button
+    addShortcutBtn.addEventListener('click', handleAddShortcut);
 
-// Add event listener to the input field for typing URL and hitting Enter
-shortcutUrlInput.addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') {
-        handleAddShortcut();
+    // Add event listener to the input field for typing URL and hitting Enter
+    shortcutUrlInput.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            handleAddShortcut();
+        }
+    });
+
+    function handleAddShortcut() {
+        let url = shortcutUrlInput.value.trim();
+
+        if (!url.startsWith("http://") && !url.startsWith("https://")) {
+            url = "https://" + url;
+        }
+
+        if (url !== '') {
+            const name = new URL(url).hostname.replace('www.', '');
+            const shortcuts = getShortcuts();
+            shortcuts.push({ name, url });
+            saveShortcuts(shortcuts);
+            displayShortcuts();
+            shortcutUrlInput.value = '';
+        }
     }
-});
-
-function handleAddShortcut() {
-    let url = shortcutUrlInput.value.trim();
-
-    if (!url.startsWith("http://") && !url.startsWith("https://")) {
-        url = "https://" + url;
-    }
-
-    if (url !== '') {
-        const name = new URL(url).hostname.replace('www.', '');
-        const shortcuts = getShortcuts();
-        shortcuts.push({ name, url });
-        saveShortcuts(shortcuts);
-        displayShortcuts();
-        shortcutUrlInput.value = '';
-    }
-}
-
-
-
     // Display initial shortcuts when the page loads
     displayShortcuts();
 

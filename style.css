@@ -64,6 +64,7 @@
     opacity: 1;
     overflow: hidden;
     overflow-y: scroll;
+    z-index: 999;
 }
 
 .options.show {
@@ -336,7 +337,7 @@ hr{
 }
 
 #shortcuts{
-    padding: 1rem;
+    padding: 1.5rem;
     border-radius: 1rem;
     text-decoration: none;
     display: flex;
@@ -374,10 +375,13 @@ hr{
     border-radius: 0.5rem;
     padding: 0.4rem;
     background-color: #ffffff;
-    width: auto; /* Set the width to auto */
+    width: fit-content; /* Set the width to auto */
     height: auto; /* Set the height to auto */
     display: flex; /* Ensure proper alignment of the icon */
     align-items: center; /* Align the icon vertically */
+    position: absolute;
+    margin-top:5rem;
+    z-index: 0;
 }
 
 .delete-icon {
@@ -398,12 +402,50 @@ hr{
 .shortcut{
     background-color: #343434;
     border-style: none;
-    padding: 0.8rem;
+    padding: 1rem;
     border-radius: 50%;
     color: #a495b6;
     text-decoration: none;
-    width: 3.3rem;
-    height: 3.3rem;
+    width: 3.2rem;
+    height: 3.2rem;
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2rem;
+    overflow: hidden;
+    overflow-y: scroll;
+
+}
+
+.shortcut-text{
+    text-align: center;
+    margin: 0;
+    font-size: 2rem;
+    color: #FFFBE8;
+}
+
+.shortcut-sub{
+    font-size: 0.5rem;
+    margin-top: 3rem;
+    position: absolute;
+    color: #FFFBE8;
+}
+
+.link{
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    place-content: center;
+}
+
+.shortcut:hover{
+    background: radial-gradient(circle, rgba(52,52,52,1) 47%, rgba(180,180,180,1) 100%);
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
 }
 
 .shortcut-section{
@@ -525,3 +567,4 @@ gap: 1rem;
     width: 3.2rem;
     height: 3.2rem;
 }
+
