@@ -31,7 +31,7 @@ function updateLightMode() {
     } else {
         // Light mode is disabled
         const themeColor = getComputedStyle(document.documentElement).getPropertyValue(`--${currentTheme}-color`);
-        bodyParallel.style.backgroundColor = '#0b1215';
+        bodyParallel.style.backgroundColor = '#252525';
         clock.style.color = themeColor;
         date.style.color = `rgba(${parseInt(themeColor.slice(4, -1).split(', ')[0])}, ${parseInt(themeColor.slice(4, -1).split(', ')[1])}, ${parseInt(themeColor.slice(4, -1).split(', ')[2])}, 0.7)`;
         shortcutsContainer.style.backgroundColor = '#2f2e30';
@@ -222,16 +222,16 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     
 // Define the default shortcuts array
-    const defaultShortcuts = [
-        { name: 'gemini', url: 'https://gemini.google.com/app', icon: 'gemini.svg' },
+    const defaultShortcuts =[
         { name: 'chat', url: 'https://chat.openai.com', icon: 'chat.svg' },
         { name: 'youtube', url: 'https://youtube.com', icon: 'yt.svg' },
-        { name: 'github', url: 'https://github.com', icon: 'github.svg' },
         { name: 'amazon', url: 'https://amazon.in', icon: 'amazon.svg' },
         { name:'gmail', url:'https://mail.google.com', icon:'gmail.svg'}
     ];
 
     const popularUrls = [
+        { name: 'github', url: 'https://github.com', icon: 'github.svg' },
+        { name: 'gemini', url: 'https://gemini.google.com/app', icon: 'gemini.svg' },
         { name: 'leetcode', url: 'https://leetcode.com/', icon: 'leetcode.svg' },
         { name: 'netflix', url: 'https://www.netflix.com/', icon: 'netflix.svg' },
         { name: 'whatsapp', url: 'https://web.whatsapp.com/', icon: 'whatsapp.svg' },
@@ -241,8 +241,17 @@ document.addEventListener("DOMContentLoaded", function() {
         { name: 'linkedin', url: 'https://linkedin.com', icon: 'linkedin.svg' },
         { name: 'reddit', url: 'https://www.reddit.com/', icon: 'reddit.svg' },
         { name: 'facebook', url: 'https://facebook.com', icon: 'facebook.svg' },
-        { name: 'canva', url: 'https://canva.com', icon: 'canva.svg' }
+        { name: 'canva', url: 'https://canva.com', icon: 'canva.svg' },
+        { name: 'google', url: 'https://google.com', icon: 'google.svg' },
+        { name: 'codechef', url: 'https://codechef', icon: 'codechef.svg' },
+        { name: 'codeforces', url: 'https://codeforces.com', icon: 'codeforces.svg' },
+        { name: 'tiktok', url: 'https://tiktok.com', icon: 'tiktok.svg' },
+        { name: 'edx', url: 'https://edx.org', icon: 'edx.svg' },
+        { name: 'instagram', url: 'https://instagram.com', icon: 'instagram.svg' },
+        { name: 'drive', url: 'https://drive.google.com', icon: 'drive.svg' },
+        { name: 'coursera', url: 'https://coursera.org', icon: 'coursera.svg' },
     ];
+
     function getShortcuts() {
         const storedShortcuts = localStorage.getItem('shortcuts');
         return storedShortcuts ? JSON.parse(storedShortcuts) : defaultShortcuts;
@@ -276,7 +285,6 @@ document.addEventListener("DOMContentLoaded", function() {
         const link = document.createElement('a');
         link.classList.add('link');
         link.href = shortcut.url;
-        link.target = '_blank';
         shortcutDiv.appendChild(link);
   
         if (shortcut.icon) {
@@ -286,8 +294,8 @@ document.addEventListener("DOMContentLoaded", function() {
             link.appendChild(shortcutIcon);
         } else {
             const urlName = new URL(shortcut.url).hostname.replace('www.', '');
-            const popularUrlMatch = popularUrls.find(popular => popular.url === shortcut.url);
-        
+            const popularUrlMatch = popularUrls.find(popular => shortcut.url.includes(new URL(popular.url).hostname));
+
             if (popularUrlMatch) {
                 const shortcutIcon = document.createElement('img');
                 shortcutIcon.classList.add('shortcut-icon');

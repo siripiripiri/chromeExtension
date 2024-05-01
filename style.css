@@ -21,6 +21,11 @@
         font-family: 'Adventuro';
         src: url('Adventuro.ttf') format('truetype');
         }
+
+        @font-face {
+            font-family: 'EB';
+            src: url('EBGaramond-VariableFont_wght.ttf') format('truetype');
+            }
     
 
 
@@ -36,8 +41,8 @@
     body {
         margin: 0;
         padding: 0;
-        background-color: #0b1215;
-        font-family: "EB Garamond", sans-serif;
+        background-color: #1f1f1f;
+        font-family: "EB", sans-serif;
         color: #565656;
     }
 
@@ -287,7 +292,7 @@ hr{
 }
 
 .settings-icon:hover{
-    box-shadow: 0 0 0.5rem 0.5rem rgba(196, 188, 188, 0.759);
+    box-shadow: 0 0 0.5rem 0.5rem rgba(193, 188, 202, 0.759);
     border-radius: 50%;
     transition: 0.2s ease-in-out;
 }
@@ -337,7 +342,7 @@ hr{
 }
 
 #shortcuts{
-    padding: 1.5rem;
+    padding: 1rem;
     border-radius: 1rem;
     text-decoration: none;
     display: flex;
@@ -382,6 +387,7 @@ hr{
     position: absolute;
     margin-top:5rem;
     z-index: 0;
+    border: #ff5f5f 1px solid;
 }
 
 .delete-icon {
@@ -567,4 +573,48 @@ gap: 1rem;
     width: 3.2rem;
     height: 3.2rem;
 }
+.about-title{
+    font-size: 1rem;
+    margin-bottom: 0rem;
+}
+.about{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'EB';
+    font-weight: 600;
+    padding: 0;
+    margin-top: 0;
+}
 
+a{
+    text-decoration: none;
+}
+
+.my-links{
+    color: #666666;
+    text-decoration: underline;
+    display: flex;
+    align-items: center;
+}
+.support{
+    color: #666666;
+    display: flex;
+    align-items: center;
+    text-decoration: underline;
+}
+
+
+.external-link{
+    width: 1rem;
+    height: 1rem;
+    color: #686868;
+    fill: #414141;
+}
+
+.report{
+    display: flex;
+    gap: 0.5rem;
+    text-decoration: underline;
+    color: #989898;
+}
