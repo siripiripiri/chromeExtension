@@ -56,15 +56,16 @@ function updateTimeAndDate() {
     let hours, ampm;
 
     if (is24HourFormat) {
-        hours = String(now.getHours()).padStart(2, '0');
+        formattedHours = String(now.getHours()).padStart(2, '0');
     } else {
         hours = (now.getHours() % 12 || 12).toString();
+        formattedHours = String(hours).padStart(2, '0');
         ampm = now.getHours() >= 12 ? 'PM' : 'AM';
     }
 
     const minutes = String(now.getMinutes()).padStart(2, '0');
     const date = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-    const timeFormat = is24HourFormat ? `${hours}:${minutes}` : `${hours}:${minutes} ${ampm}`;
+    const timeFormat = is24HourFormat ? `${formattedHours}:${minutes}` : `${formattedHours}:${minutes} ${ampm}`;
     const clockElement = document.getElementById('clock');
     clockElement.innerText = timeFormat;
 
@@ -147,6 +148,7 @@ function updateClockFontFamily(font) {
                 break;
             case 'bright':
                 clockElement.style.fontFamily = 'Adventuro';
+                clockElement.style.fontWeight = '400';
                 break;
             case 'subtle':
                 clockElement.style.fontFamily = 'Monas';
@@ -223,33 +225,33 @@ document.addEventListener("DOMContentLoaded", function() {
     
 // Define the default shortcuts array
     const defaultShortcuts =[
-        { name: 'chat', url: 'https://chat.openai.com', icon: 'chat.svg' },
-        { name: 'youtube', url: 'https://youtube.com', icon: 'yt.svg' },
-        { name: 'amazon', url: 'https://amazon.in', icon: 'amazon.svg' },
-        { name:'gmail', url:'https://mail.google.com', icon:'gmail.svg'}
+        { name: 'chat', url: 'https://chat.openai.com', icon: 'Icons/chat.svg' },
+        { name: 'youtube', url: 'https://youtube.com', icon: 'Icons/yt.svg' },
+        { name: 'amazon', url: 'https://amazon.in', icon: 'Icons/amazon.svg' },
+        { name:'gmail', url:'https://mail.google.com', icon:'Icons/gmail.svg'}
     ];
 
     const popularUrls = [
-        { name: 'github', url: 'https://github.com', icon: 'github.svg' },
-        { name: 'gemini', url: 'https://gemini.google.com/app', icon: 'gemini.svg' },
-        { name: 'leetcode', url: 'https://leetcode.com/', icon: 'leetcode.svg' },
-        { name: 'netflix', url: 'https://www.netflix.com/', icon: 'netflix.svg' },
-        { name: 'whatsapp', url: 'https://web.whatsapp.com/', icon: 'whatsapp.svg' },
-        { name: 'pinterest', url: 'https://pinterest.com/', icon: 'pinterest.svg' },
-        { name: 'x', url: 'https://x.com', icon: 'x.svg' },
-        { name: 'teams', url: 'https://teams.microsoft.com/v2/', icon: 'teams.svg' },
-        { name: 'linkedin', url: 'https://linkedin.com', icon: 'linkedin.svg' },
-        { name: 'reddit', url: 'https://www.reddit.com/', icon: 'reddit.svg' },
-        { name: 'facebook', url: 'https://facebook.com', icon: 'facebook.svg' },
-        { name: 'canva', url: 'https://canva.com', icon: 'canva.svg' },
-        { name: 'google', url: 'https://google.com', icon: 'google.svg' },
-        { name: 'codechef', url: 'https://codechef', icon: 'codechef.svg' },
-        { name: 'codeforces', url: 'https://codeforces.com', icon: 'codeforces.svg' },
-        { name: 'tiktok', url: 'https://tiktok.com', icon: 'tiktok.svg' },
-        { name: 'edx', url: 'https://edx.org', icon: 'edx.svg' },
-        { name: 'instagram', url: 'https://instagram.com', icon: 'instagram.svg' },
-        { name: 'drive', url: 'https://drive.google.com', icon: 'drive.svg' },
-        { name: 'coursera', url: 'https://coursera.org', icon: 'coursera.svg' },
+        { name: 'github', url: 'https://github.com', icon: 'Icons/github.svg' },
+        { name: 'gemini', url: 'https://gemini.google.com/app', icon: 'Icons/gemini.svg' },
+        { name: 'leetcode', url: 'https://leetcode.com/', icon: 'Icons/leetcode.svg' },
+        { name: 'netflix', url: 'https://www.netflix.com/', icon: 'Icons/netflix.svg' },
+        { name: 'whatsapp', url: 'https://web.whatsapp.com/', icon: 'Icons/whatsapp.svg' },
+        { name: 'pinterest', url: 'https://pinterest.com/', icon: 'Icons/pinterest.svg' },
+        { name: 'x', url: 'https://x.com', icon: 'Icons/x.svg' },
+        { name: 'teams', url: 'https://teams.microsoft.com/v2/', icon: 'Icons/teams.svg' },
+        { name: 'linkedin', url: 'https://linkedin.com', icon: 'Icons/linkedin.svg' },
+        { name: 'reddit', url: 'https://www.reddit.com/', icon: 'Icons/reddit.svg' },
+        { name: 'facebook', url: 'https://facebook.com', icon: 'Icons/facebook.svg' },
+        { name: 'canva', url: 'https://canva.com', icon: 'Icons/canva.svg' },
+        { name: 'google', url: 'https://google.com', icon: 'Icons/google.svg' },
+        { name: 'codechef', url: 'https://codechef', icon: 'Icons/codechef.svg' },
+        { name: 'codeforces', url: 'https://codeforces.com', icon: 'Icons/codeforces.svg' },
+        { name: 'tiktok', url: 'https://tiktok.com', icon: 'Icons/tiktok.svg' },
+        { name: 'edx', url: 'https://edx.org', icon: 'Icons/edx.svg' },
+        { name: 'instagram', url: 'https://instagram.com', icon: 'Icons/instagram.svg' },
+        { name: 'drive', url: 'https://drive.google.com', icon: 'Icons/drive.svg' },
+        { name: 'coursera', url: 'https://coursera.org', icon: 'Icons/coursera.svg' },
     ];
 
     function getShortcuts() {
@@ -294,8 +296,7 @@ document.addEventListener("DOMContentLoaded", function() {
             link.appendChild(shortcutIcon);
         } else {
             const urlName = new URL(shortcut.url).hostname.replace('www.', '');
-            const popularUrlMatch = popularUrls.find(popular => shortcut.url.includes(new URL(popular.url).hostname));
-
+            const popularUrlMatch = popularUrls.find(popular => urlName.startsWith(new URL(popular.url).hostname.replace('www.', '')));
             if (popularUrlMatch) {
                 const shortcutIcon = document.createElement('img');
                 shortcutIcon.classList.add('shortcut-icon');
@@ -328,7 +329,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const deleteBtn = document.createElement('button');
         const imgIcon = document.createElement('img');
         imgIcon.classList.add('delete-icon');
-        imgIcon.src = 'del-icon.svg';
+        imgIcon.src = 'system/del-icon.svg';
         imgIcon.alt = 'Delete';
         deleteBtn.appendChild(imgIcon);
         deleteBtn.classList.add('delete-btn');

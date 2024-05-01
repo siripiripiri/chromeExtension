@@ -1,41 +1,42 @@
 @font-face {
     font-family: 'Eugusto';
-    src: url('Eugusto Free Font.otf') format('opentype');
+    src: url('/Typefaces/Eugusto Free Font.otf') format('opentype');
     }
 
     @font-face {
         font-family: 'Monas';
-        src: url('BricolageGrotesque-VariableFont_opsz,wdth,wght.ttf') format('truetype');
+        src: url('/Typefaces/BricolageGrotesque-VariableFont_opsz\,wdth\,wght.ttf') format('truetype');
         }
 
     @font-face {
     font-family: 'Gazpacho';
-    src: url('Gazpacho Medium.ttf') format('truetype');
+    src: url('/Typefaces/Gazpacho\ Medium.ttf') format('truetype');
     }
+
     @font-face {
     font-family: 'Rounded';
-    src: url('Arial Rounded MT Regular.ttf') format('truetype');
+    src: url('/Typefaces/Arial\ Rounded\ MT\ Regular.ttf') format('truetype');
     }
 
     @font-face {
         font-family: 'Adventuro';
-        src: url('Adventuro.ttf') format('truetype');
+        src: url('/Typefaces/Adventuro.ttf') format('truetype');
         }
 
         @font-face {
             font-family: 'EB';
-            src: url('EBGaramond-VariableFont_wght.ttf') format('truetype');
+            src: url('/Typefaces/EBGaramond-VariableFont_wght.ttf') format('truetype');
             }
     
 
 
     :root {
-        --lavender-color: #EBD3F7;
+        --lavender-color: #E5D4F4;
         --sunbeam-color: #FCEAC6;
-        --meadow-color: #CBE5C0;
-        --peach-color: #F6BCAE;
-        --aqua-color: #CDEBF3;
-        --mist-color: #cfdbde;
+        --meadow-color: #c2d6b1;
+        --pearl-color: #F9DCD8;
+        --aqua-color: #a3cfd6;
+        --mist-color: #dedede;
       }
 
     body {
@@ -66,7 +67,7 @@
     border: #3c3c3c 0.15rem solid;
     pointer-events: none; /* Initially not clickable */
     transition: opacity 0.3s ease-in-out;
-    opacity: 1;
+    opacity: 0;
     overflow: hidden;
     overflow-y: scroll;
     z-index: 999;
@@ -236,9 +237,10 @@ hr{
 #aqua{
     background-color:  var(--aqua-color);
 }
-#peach{
-    background-color: var(--peach-color);
+#pearl{
+    background-color: var(--pearl-color);
 }
+
 .lavender {
     color: var(--lavender-color);
   }
@@ -250,8 +252,8 @@ hr{
   .meadow {
     color: var(--meadow-color);
   }
-  .peach{
-    color: var(--peach-color);
+  .pearl{
+    color: var(--pearl-color);
   }
   .aqua{
     color: var(--aqua-color);
@@ -319,7 +321,7 @@ hr{
     .msg{
         color: #757575;
         font-family: 'Rounded';
-        font-weight: 200;
+        font-weight: 300;
         font-size: 1.5rem;
     }
 
@@ -617,4 +619,5 @@ a{
     gap: 0.5rem;
     text-decoration: underline;
     color: #989898;
+    margin-bottom: 2rem;
 }
