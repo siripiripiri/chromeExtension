@@ -145,13 +145,15 @@ function updateClockFontFamily(font) {
         switch (font) {
             case 'groovy':
                 clockElement.style.fontFamily = 'Eugusto';
+                clockElement.style.fontWeight= '600';
                 break;
             case 'bright':
                 clockElement.style.fontFamily = 'Adventuro';
-                clockElement.style.fontWeight = '400';
+                clockElement.style.fontWeight= '100';
                 break;
             case 'subtle':
                 clockElement.style.fontFamily = 'Monas';
+                clockElement.style.fontWeight= '500';
                 break;
             default:
                 // Default font family

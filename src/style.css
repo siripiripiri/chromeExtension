@@ -20,7 +20,7 @@
 
     @font-face {
         font-family: 'Adventuro';
-        src: url('/Typefaces/Adventuro.ttf') format('truetype');
+        src: url('/Typefaces/Augillion\ DEMO.otf') format('opentype');
         }
 
         @font-face {
@@ -61,7 +61,7 @@
     background-color: #ffffff;
     height: 35rem;
     right: 0;
-    margin-top: 4rem;
+    margin-top: 5rem;
     margin-right: 2rem;
     border-radius: 1rem;
     border: #3c3c3c 0.15rem solid;
@@ -71,6 +71,7 @@
     overflow: hidden;
     overflow-y: scroll;
     z-index: 999;
+
 }
 
 .options.show {
@@ -272,7 +273,7 @@ hr{
 
 
     #clock {
-        font-size: 5rem;
+        font-size: 4.5rem;
         font-family: 'Eugusto';
         font-weight: 700;
         letter-spacing: 0.25rem;
@@ -280,7 +281,7 @@ hr{
     }
 
     #date {
-        font-size: 1.5rem;
+        font-size: 1.6rem;
         font-family: 'Gazpacho';
         font-weight: 500;
         transition: 0.5s ease;
@@ -430,7 +431,7 @@ hr{
 .shortcut-text{
     text-align: center;
     margin: 0;
-    font-size: 2rem;
+    font-size: 1.8rem;
     color: #FFFBE8;
 }
 

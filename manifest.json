@@ -1,8 +1,8 @@
 {
-    "name": "Extension4u",
+    "name": "Kairós | New Tab",
     "version": "1.0",
     "manifest_version": 3,
-    "description": "This wont hurt your eyes baby",
+    "description": "The Right Time is NOW.",
     "permissions": ["tabs"],
     "chrome_url_overrides" : {
     "newtab": "newtab.html"
