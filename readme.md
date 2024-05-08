@@ -24,7 +24,7 @@ A Mindful New Tab Experience
 
 ## Privacy Policy
 
-[privacy policy](https://github.com/siripiripiri/privacy_policy.md) 
+[privacy policy](https://github.com/siripiripiri/chromeExtension/blob/main/privacy_policy.md) 
 
 ## Side Notes
 
