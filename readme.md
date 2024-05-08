@@ -16,7 +16,6 @@ A Mindful New Tab Experience
 
 ## Demo
 
-Insert gif or link to demo
 ![sr-ezgif com-video-to-gif-converter](https://github.com/siripiripiri/chromeExtension/assets/68395391/35bc70e0-6d23-475a-a80e-59558c1d637d)
 
 ## Download
