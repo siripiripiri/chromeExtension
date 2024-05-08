@@ -424,7 +424,6 @@ hr{
     flex-direction: column;
     gap: 2rem;
     overflow: hidden;
-    overflow-y: scroll;
 
 }
 
