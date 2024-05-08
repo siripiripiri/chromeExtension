@@ -20,10 +20,14 @@ Insert gif or link to demo
 ![sr-ezgif com-video-to-gif-converter](https://github.com/siripiripiri/chromeExtension/assets/68395391/35bc70e0-6d23-475a-a80e-59558c1d637d)
 
 ## Download
-[Chrome Web Store]([https://chrome.google.com/webstore/detail/lavender-new-tab/ffobepdbanoiodmfimpmanafepclokbc](https://chromewebstore.google.com/detail/kairós-new-tab/eeldaadaopmeccekdpdhlkadjhknaoin))
 
+[Chrome Web Store](https://chromewebstore.google.com/detail/kairós-new-tab/eeldaadaopmeccekdpdhlkadjhknaoin)
+
+## Privacy Policy
 
 [privacy policy](https://github.com/siripiripiri/privacy_policy.md) 
+
+## Side Notes
 
 feedback & suggestions are always welcome!
 
